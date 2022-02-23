@@ -9,7 +9,7 @@ const obtenerPokemon = async () => {
   }`;
   const result = await axios.get(url);
   //ayuda pokemon 😄
-  // console.log(result);
+  console.log(result);
 
   return result.data;
 };
@@ -37,6 +37,7 @@ function App() {
   function handleReset() {
     obtenerPokemon().then((pokemon) => {
       setPokemon(pokemon);
+      setStatus("PLAYING");
     });
   }
 
@@ -53,8 +54,8 @@ function App() {
               w={300}
               style={{
                 imageRendering: "pixelated",
+                transition: "filter 0.2s",
                 filter: `brightness(${status === "SUCC" ? 1 : 0})`,
-                transition: "filter 2s",
               }}
               src={pokemon.sprites.front_default}
               alt="pokemon"
@@ -116,14 +117,21 @@ function App() {
         )}
 
         <Stack direction="row" justify="center">
-          <Button
-            p="2px 57px 2px 57px"
-            colorScheme="orange"
-            textShadow="2px 2px 5px black"
-            onClick={() => handleReset()}
-          >
-            Dame otro pokemon!
-          </Button>
+          <Stack direction="column" spacing={35} alignItems="center">
+            <Button
+              p="2px 57px 2px 57px"
+              colorScheme="orange"
+              textShadow="2px 2px 5px black"
+              onClick={() => handleReset()}
+            >
+              Dame otro pokemon!
+            </Button>
+            <Stack direction="row">
+              <Text textShadow="4px 4px 8px black" color="#f7d51d">
+                Pokeguess by Jav3to
+              </Text>
+            </Stack>
+          </Stack>
         </Stack>
       </Stack>
     </div>
