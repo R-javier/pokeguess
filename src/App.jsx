@@ -3,35 +3,41 @@ import { Stack, Heading, Image, Text, Input, Button } from "@chakra-ui/react";
 
 import axios from "axios";
 import "./App.css";
+const obtenerPokemon = async () => {
+  let url = `https://pokeapi.co/api/v2/pokemon/${
+    Math.round(Math.random() * 20) + 1
+  }`;
+  const result = await axios.get(url);
+  //ayuda pokemon 😄
+  console.log(result);
 
+  return result.data;
+};
 function App() {
   const [pokemon, setPokemon] = useState([]);
-  const [pokeimg, setPokeImg] = useState("");
-  const [status, setStatus] = useState(["GUESSING" | "SUCC" | "FAIL"]);
+  const [status, setStatus] = useState("LOADING");
   const [nombrePokemon, setNombrePokemon] = useState("");
 
   useEffect(() => {
-    const obtenerPokemon = async () => {
-      let url = `https://pokeapi.co/api/v2/pokemon/${Math.round(
-        Math.random() * 20
-      )}`;
-      const result = await axios.get(url);
-      //ayuda pokemon 😄
-      // console.log(result);
-      setPokemon(result.data);
-      setPokeImg(result.data.sprites.front_default);
-    };
-    obtenerPokemon();
+    obtenerPokemon().then((pokemon) => {
+      setPokemon(pokemon);
+      setStatus("PLAYING");
+    });
   }, []);
 
   function handleSubmit() {
-    event.preventDefault();
-    setStatus(nombrePokemon === pokemon.name ? "SUCC" : "FAIL");
+    setStatus(
+      nombrePokemon.toLowerCase() === pokemon.name.toLowerCase()
+        ? "SUCC"
+        : "FAIL"
+    );
     setNombrePokemon("");
   }
 
   function handleReset() {
-    window.location.reload();
+    obtenerPokemon().then((pokemon) => {
+      setPokemon(pokemon);
+    });
   }
 
   return (
@@ -39,20 +45,22 @@ function App() {
       <Stack className="App" w="100vw" h="100vh" justify="center">
         <Heading className="titulo">¿ Quién es este pokemon ?</Heading>
 
-        <Stack direction="row" justify="center">
-          <Image
-            className="imagen"
-            h={300}
-            w={300}
-            style={{
-              imageRendering: "pixelated",
-              filter: `brightness(${status === "SUCC" ? 1 : 0})`,
-              transition: "filter 2s",
-            }}
-            src={pokeimg}
-            alt="pokemon"
-          />
-        </Stack>
+        {status !== "LOADING" && (
+          <Stack direction="row" justify="center">
+            <Image
+              className="imagen"
+              h={300}
+              w={300}
+              style={{
+                imageRendering: "pixelated",
+                filter: `brightness(${status === "SUCC" ? 1 : 0})`,
+                transition: "filter 2s",
+              }}
+              src={pokemon.sprites.front_default}
+              alt="pokemon"
+            />
+          </Stack>
+        )}
         {status === "SUCC" ? (
           <Stack
             direction="column"
