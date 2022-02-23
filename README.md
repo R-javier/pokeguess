@@ -1,11 +1,11 @@
-# ✨ POKEGUESS! "Who's That Pokemon" guessing game
+# ✨ POKEGUESS! "Who's That Pokemon" guessing game by Jav3to
 
 <br>
 
 ## 💻 Technology
 
-- React 
-- Chakra-ui 
+- React
+- Chakra-ui
 - Css
 
 ![01](./screenshot/01.jpg)

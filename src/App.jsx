@@ -9,7 +9,7 @@ const obtenerPokemon = async () => {
   }`;
   const result = await axios.get(url);
   //ayuda pokemon 😄
-  console.log(result);
+  // console.log(result);
 
   return result.data;
 };
