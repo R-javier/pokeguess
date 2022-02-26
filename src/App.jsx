@@ -7,9 +7,10 @@ const obtenerPokemon = async () => {
   let url = `https://pokeapi.co/api/v2/pokemon/${
     Math.round(Math.random() * 40) + 1
   }`;
+
   const result = await axios.get(url);
   //ayuda pokemon 😄
-  console.log(result);
+  // console.log(result);
 
   return result.data;
 };
