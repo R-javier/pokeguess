@@ -5,7 +5,7 @@ import axios from "axios";
 import "./App.css";
 const obtenerPokemon = async () => {
   let url = `https://pokeapi.co/api/v2/pokemon/${
-    Math.round(Math.random() * 20) + 1
+    Math.round(Math.random() * 40) + 1
   }`;
   const result = await axios.get(url);
   //ayuda pokemon 😄
@@ -88,30 +88,39 @@ function App() {
             </Stack>
           </Stack>
         ) : (
-          <Stack justify="center" direction="row">
-            <Stack
-              direction="row"
-              maxW="400px"
-              justify="space-between"
-              display="flex"
-              alignItems="center"
-            >
-              <Input
-                p="0px 0px 0px 90px"
-                className="input.is-error"
-                value={nombrePokemon}
-                onChange={(event) => {
-                  setNombrePokemon(event.target.value);
-                }}
-                type="text"
-              />
-              <Button
-                className="nes-btn is-danger"
-                size="sm"
-                onClick={() => handleSubmit()}
+          <Stack direction="column" justify="center">
+            <Stack>
+              {status === "FAIL" ? (
+                <Text color="red">Intenta otra vez !!!</Text>
+              ) : (
+                <Text></Text>
+              )}
+            </Stack>
+            <Stack justify="center" direction="row">
+              <Stack
+                direction="row"
+                maxW="400px"
+                justify="space-between"
+                display="flex"
+                alignItems="center"
               >
-                Go !
-              </Button>
+                <Input
+                  p="0px 0px 0px 90px"
+                  className="input.is-error"
+                  value={nombrePokemon}
+                  onChange={(event) => {
+                    setNombrePokemon(event.target.value);
+                  }}
+                  type="text"
+                />
+                <Button
+                  className="nes-btn is-danger"
+                  size="sm"
+                  onClick={() => handleSubmit()}
+                >
+                  Go !
+                </Button>
+              </Stack>
             </Stack>
           </Stack>
         )}
