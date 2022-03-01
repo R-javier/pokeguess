@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Stack, Heading, Image, Text, Input, Button } from "@chakra-ui/react";
+import {
+  Stack,
+  Heading,
+  Box,
+  Image,
+  Text,
+  Input,
+  Button,
+} from "@chakra-ui/react";
 
 import axios from "axios";
 import "./App.css";
@@ -56,7 +64,9 @@ function App() {
               style={{
                 imageRendering: "pixelated",
                 transition: "filter 0.2s",
-                filter: `brightness(${status === "SUCC" ? 1 : 0})`,
+                filter: `brightness(${
+                  status === "SUCC" ? 1 : 0 || status === "FAIL" ? 1 : 0
+                })`,
               }}
               src={pokemon.sprites.front_default}
               alt="pokemon"
@@ -70,18 +80,15 @@ function App() {
             display="flex"
             alignItems="center"
           >
-            <Text
-              color="green.300"
-              fontSize="lg"
-              textShadow="1px 3px 3px black"
-            >
+            <Text color="black" fontSize="lg" textShadow="2px 4px 4px green">
               {pokemon.name}✔️
             </Text>
+
             <Stack direction="row" justify="center">
               <Button
                 size="sm"
                 autoFocus
-                className="nes-btn is-warning"
+                class="nes-btn is-success"
                 onClick={() => handleReset()}
               >
                 Jugar de nuevo
@@ -92,7 +99,32 @@ function App() {
           <Stack direction="column" justify="center">
             <Stack>
               {status === "FAIL" ? (
-                <Text color="red">Intenta otra vez !!!</Text>
+                <Stack alignItems="center">
+                  <Text
+                    textShadow="1px 1px 1px black"
+                    alignItems="center"
+                    color="red"
+                  >
+                    {" "}
+                    Intenta otra vez !!!
+                  </Text>
+                  <Box background="blackAlpha.500" w="20%" p={3} color="white">
+                    <Text color="black">
+                      El pokemon era:<br></br>
+                      <Text textShadow="1px 3px 3px black" color="green.200">
+                        {pokemon.name}
+                      </Text>
+                    </Text>
+                    <Button
+                      size="sm"
+                      autoFocus
+                      class="nes-btn is-success"
+                      onClick={() => handleReset()}
+                    >
+                      Jugar de nuevo
+                    </Button>
+                  </Box>
+                </Stack>
               ) : (
                 <Text></Text>
               )}
@@ -106,7 +138,9 @@ function App() {
                 alignItems="center"
               >
                 <Input
-                  p="0px 0px 0px 90px"
+                  background="blackAlpha.500"
+                  color="white"
+                  p="0px 0px 0px 30px"
                   className="input.is-error"
                   value={nombrePokemon}
                   onChange={(event) => {
@@ -130,8 +164,10 @@ function App() {
           <Stack direction="column" spacing={35} alignItems="center">
             <Button
               p="2px 57px 2px 57px"
-              colorScheme="orange"
               textShadow="2px 2px 5px black"
+              background="orange.500"
+              colorScheme="orange"
+              color="white"
               onClick={() => handleReset()}
             >
               Dame otro pokemon!
