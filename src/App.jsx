@@ -109,12 +109,14 @@ function App() {
                     Intenta otra vez !!!
                   </Text>
                   <Box background="blackAlpha.500" w="20%" p={3} color="white">
-                    <Text color="black">
-                      El pokemon era:<br></br>
-                      <Text textShadow="1px 3px 3px black" color="green.200">
-                        {pokemon.name}
+                    <Stack direction="row" alignItems="center" justify="center">
+                      <Text color="black">
+                        El pokemon era:<br></br>
+                        <Text textShadow="1px 3px 3px black" color="green.200">
+                          {pokemon.name}
+                        </Text>
                       </Text>
-                    </Text>
+                    </Stack>
                     <Button
                       size="sm"
                       autoFocus
