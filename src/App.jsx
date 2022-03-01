@@ -80,7 +80,7 @@ function App() {
             display="flex"
             alignItems="center"
           >
-            <Text color="black" fontSize="lg" textShadow="2px 4px 4px green">
+            <Text color="black" fontSize="lg" textShadow="2px 1px 1px white">
               {pokemon.name}✔️
             </Text>
 
@@ -110,7 +110,7 @@ function App() {
                   </Text>
 
                   <Stack direction="row" alignItems="center" justify="center">
-                    <Text color="black">
+                    <Text color="black" textShadow="1px 1px 1px gray.400">
                       El pokemon era:<br></br>
                       <Text textShadow="1px 3px 3px black" color="green.200">
                         {pokemon.name}
